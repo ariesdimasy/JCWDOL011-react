@@ -1,0 +1,11 @@
+.btnIncrease { 
+    margin-left:10px;
+    width: 50px;
+    padding:5px;
+}
+
+.btnDecrease { 
+    margin-right:10px;
+     width: 50px;
+    padding:5px;
+}
