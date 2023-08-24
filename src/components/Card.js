@@ -32,6 +32,11 @@ export default function Card(props) {
 
   useEffect(() => {
     console.log("useEffect kedua counter " + count);
+    if (props.idCard == 1) {
+      props.setCard1(count);
+    } else if (props.idCard == 2) {
+      props.setCard2(count);
+    }
   }, [count, name]);
 
   return (
@@ -46,6 +51,7 @@ export default function Card(props) {
         marginLeft: "auto",
         marginRight: "auto",
         textAlign: "center",
+        backgroundColor: "green",
       }}
     >
       <h4> Card </h4>
@@ -56,14 +62,20 @@ export default function Card(props) {
           setLoading(true);
           setTimeout(() => {
             setLoading(false);
-            decrement();
+            decrement(); // asynchronous
+            // synchronous
           }, 3000);
         }}
       >
         {" "}
         -{" "}
       </button>
-      <button className={style.btnIncrease} onClick={() => increment()}>
+      <button
+        className={style.btnIncrease}
+        onClick={() => {
+          increment();
+        }}
+      >
         {" "}
         +{" "}
       </button>
