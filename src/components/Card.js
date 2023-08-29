@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
 import style from "./Card.module.css";
-import useCounter from "../hooks/counter-hook";
+// import useCounter from "../hooks/counter-hook";
+import { useSelector, useDispatch } from "react-redux";
+import { decrement, increment } from "../app/features/counter/counterSlice";
 
-export default function Card(props) {
+export default function Card() {
   //const [counter, setCounter] = useState(0);
   const [name, setName] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [count, increment, decrement] = useCounter(0, 1);
+  //const [loading, setLoading] = useState(false);
+  //const [count, increment, decrement] = useCounter(0, 1);
+  const counter = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
 
   // const increaseCounter = () => {
-  //   setLoading(true);
-  //   //const newCounter = counter + 1;
-  //   setTimeout(() => {
-  //     setCounter(counter + 1);
-  //     setLoading(false);
-  //   }, 3000);
+  //   setCounter(counter + 1);
   // };
 
   // const decreaseCounter = () => {
@@ -25,19 +24,10 @@ export default function Card(props) {
     //setCounter(props?.counter);
     //alert("use effect ke trigger saat pertama kali reload");
     console.log(" ketrigger ");
-    console.log("useEffect pertama counter " + count);
+    console.log("useEffect pertama counter " + counter);
 
     // increaseCounter();
   }, []);
-
-  useEffect(() => {
-    console.log("useEffect kedua counter " + count);
-    if (props.idCard == 1) {
-      props.setCard1(count);
-    } else if (props.idCard == 2) {
-      props.setCard2(count);
-    }
-  }, [count, name]);
 
   return (
     <div
@@ -55,16 +45,12 @@ export default function Card(props) {
       }}
     >
       <h4> Card </h4>
-      <h2 style={{ fontSize: 60 }}>{count}</h2>
+      <h2 style={{ fontSize: 60 }}>{counter}</h2>
       <button
         className={style.btnDecrease}
         onClick={() => {
-          setLoading(true);
-          setTimeout(() => {
-            setLoading(false);
-            decrement(); // asynchronous
-            // synchronous
-          }, 3000);
+          //decreaseCounter();
+          dispatch(decrement());
         }}
       >
         {" "}
@@ -73,7 +59,8 @@ export default function Card(props) {
       <button
         className={style.btnIncrease}
         onClick={() => {
-          increment();
+          //increaseCounter();
+          dispatch(increment());
         }}
       >
         {" "}
